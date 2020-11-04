@@ -148,6 +148,8 @@ spec:
 be made in CR too. Also as mentioned before, `nfs path` for all above yamls needs to be exported in NFS server. Also note that `postgres-volume-cp`, 
 `gitserver-volume-cp` and `metagraph-volume-cp` are localpath based volume, and the storage class name used in this yaml should be changed to correct storage class._
 
+**Things to check** _Persistent volumes with appropriate name, size and policy are created in system_
+
 ### ProphecyCluster CRD
 
 <details><summary>ProphecyCluster CRD YAML File</summary>
@@ -1576,6 +1578,8 @@ spec:
 </p>
 </details>
 
+**Things to check** _A CRD with name `prophecyclusters.prophecy.simpledatalabs.inc` is created in cluster. We can use `kubectl get crd` command to check the same._
+
 ## Namespace scoped Resources
 This section contains the yaml files for the namespace scoped resources needed for deployment.
 
@@ -1700,6 +1704,9 @@ roleRef:
 
 **Note** _The RoleBinding resource assumes namespace `cp` for the service account._
 
+**Things to check** _Please check if a role with name `prophecy-operator` is created. `kubectl -n <controlplanenamespace' get role` can be used to check the same. 
+Also we should see a rolebinding and a service account with name `prophecy-operator` should be created. `kubectl -n <controlplanenamespace' get rolebindings` and `kubectl -n <controlplanenamespace' get serviceaccounts` can be used to check the rolebinding and serviceaccount status respectively._
+
 ### Secret for Docker image registry
 
 The secret is expected to be created in advance by the infra-admin to provide access to the image registry and 
@@ -1764,6 +1771,8 @@ spec:
 </details>
 
 Note that the appropriate operator image and docker image registry secretname is to be passed in the above yaml.
+
+**Things to check** _A deployment with a pod for prophecy operator should be created after deploying above yaml._
 
 ### Ingress Resources
 The yamls for ingress resources for exposing some services outside the K8s cluster are given below.
@@ -1923,6 +1932,8 @@ spec:
 **Note** _The annotation `cert-manager.io/cluster-issuer: prophecy-letsencrypt` in `prophecy-app` and `prophecy-gitserver` 
 ingress resources. This needs to be changed based on the certificate issuer being used for cert-management._
 
+**Things to check** _Please verify if all the ingress points given in above yaml are created._
+
 ### ProphecyCluster CR
 The yaml for deploying this custom resource is given below. This resource is managed by the controlplane operator deployed 
 above and it takes care of deploying and managing all Prophecy components. 
@@ -2036,4 +2047,5 @@ spec:
 
    _of above CR should be passed with appropriate Persistent volume names as defined during creation of Persistent Volumes._
 
+**Things to check** _A custom resource of type `ProphecyCluster` is created. `kubectl -n <controlplanenamespace> get ProphecyCluster` will tell you the same_
 
