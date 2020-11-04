@@ -2047,5 +2047,17 @@ spec:
 
    _of above CR should be passed with appropriate Persistent volume names as defined during creation of Persistent Volumes._
 
-**Things to check** _A custom resource of type `ProphecyCluster` is created. `kubectl -n <controlplanenamespace> get ProphecyCluster` will tell you the same_
+**Things to check** 
+* _A custom resource of type `ProphecyCluster` is created. `kubectl -n <controlplanenamespace> get ProphecyCluster` will tell you the same._
+
+* _Please run `kubectl -n <controlplanenamespace> get deployments`, `kubectl -n <controlplanenamespace> get pods` to verify if we see all the deployments/pods for the apps listed here: https://github.com/SimpleDataLabsInc/onpremdocs#list-of-apps-1._
+
+*  _Please run `kubectl -n <controlplanenamespace> get pvc` to check if there is a pvc created for all the PVs mentioned in this section : https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/controlplane.md#persistent-volumes. Also please verify if they are in bounded state._
+
+* _Once all pods are in running state, you should be able to access prophecy app with the ingress url provided for `prophecy-app` : https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/controlplane.md#ingress-resources. If you have used this yaml as it is, then it will be : https://cp.visa.cloud.prophecy.io_  
+
+* _At this stage you should be able to login with your LDAP crdentials and follow our in-app tour to navigate the rest of the feature._
+
+Please contact Prophecy Support in case you see problem in any of the above steps. 
+
 
