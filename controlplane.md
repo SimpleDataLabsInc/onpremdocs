@@ -1958,18 +1958,18 @@ spec:
   tenant_name: cp
   customer_name: visa
   image_registry_secret: <registry-secret-name>
+  auth-backend: ldap
+  openid-federator-host: federator.prophecy.visa.cloud.prophecy.io
+  openid-connector-id: ldapvisa
   enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager
   bootup:
     bootup-volume:
       volumename: nfs-init-pv-cp
   app:
-    auth-backend: ldap
     image: <app-image>:latest
     loggingurl: ""
     monitoringurl: ""
     openid-client-id: visaprophecyapp
-    openid-connector-id: ldapvisa
-    openid-federator-host: federator.prophecy.visa.cloud.prophecy.io
     openid-federator-port: "80"
     openid-issuer-url: http://federator.prophecy.visa.cloud.prophecy.io
     openid-redirect-ui: http://0.0.0.0:5555/callback
