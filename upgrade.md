@@ -1,8 +1,8 @@
 # Prophecy Upgrade
 
-This section covers the how-to for upgrading prophecy cluster. Prophecy cluster is distributed among three kubernetes namespaces, prophecy(platform), cp(controlplane) and dp(dataplane). Note that customer might have multiple controlplanes and dataplanes in their environment depending upon there team structure and how many clusters they want to deploy.
+This section covers the how-to for upgrading prophecy cluster. Prophecy cluster is distributed among three kubernetes namespaces, prophecy(platform), cp(controlplane) and dp(dataplane). Note that a customer might have multiple controlplanes and dataplanes in their environment depending upon their team structure and how many clusters they want to deploy.
 
-Prophecy upgrade tool can be used to upgrade a particular namespace at a time. Please contact Prophecy Support to get the upgrade tool and run it with below command:
+Prophecy upgrade tool can be used to upgrade a particular namespace at a time. Please contact Prophecy Support to get the upgrade tool and run it with the below command:
 
 ```
 ./proupgrade.sh -n <namespace> [--kubeconfig[=]<Path to kubeconfig file>]
