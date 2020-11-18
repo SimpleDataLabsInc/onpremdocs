@@ -16,20 +16,20 @@ spec:
   enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager
   auth-backend: ldap
   openid-connector-id: ldapvisa
-  openid-federator-host: federatorvisa.prophecy.visa.cloud.prophecy.io
+  openid-federator-host: <replace_with_federator_ingress_without_http>
   bootup:
     bootup-volume:
       volumename: nfs-init-common-pv
   app:
-    image: gcr.io/prophecy-deployments/app:visa
+    image: <replace_with_app_image_in_visa_repo>
     loggingurl: ""
     monitoringurl: ""
     openid-client-id: visaprophecyapp
     openid-federator-port: "80"
-    openid-issuer-url: http://federatorvisa.prophecy.visa.cloud.prophecy.io
+    openid-issuer-url: <replace_with_federator_ingress>
     openid-redirect-ui: http://0.0.0.0:5555/callback
   postgres:
-    image: gcr.io/prophecy-deployments/release_southwest_v0.1/postgres-sdl:latest
+    image: <replace_with_postgres_image_in_visa_repo>
     postgres-log-volume:
       volumename: postgres-log-volume-prophecy
     postgres-volume:
@@ -38,7 +38,7 @@ spec:
       storagetype: local
       volumename: postgres-hp-volume-prophecy
   metagraph:
-    image: gcr.io/prophecy-deployments/metadatagraph:visa
+    image: <replace_with_metagraph_image_in_visa_repo>
     enable-git-manager: true
     metagraph-projectrepos-volume:
       accessmode: ReadWriteOnce
@@ -46,7 +46,7 @@ spec:
       storagetype: local
       volumename: metagraph-projectrepos-hp-volume-prophecy
   gitserver:
-    image: gcr.io/prophecy-deployments/release_southwest_v0.1/gitserver:latest
+    image: <replace_with_gitserver_image_in_visa_repo>
     git-log-volume:
       volumename: gitserver-log-volume-prophecy
     git-volume:
@@ -55,15 +55,15 @@ spec:
       storagetype: local
       volumename: gitserver-hp-volume-prophecy
   cgweb:
-    image: gcr.io/prophecy-deployments/codegenweb:visa
+    image: <replace_with_codegen_image_in_visa_repo>
   sparkedge:
-    image: gcr.io/prophecy-deployments/sparkedge:visa
+    image: <replace_with_sparkedge_image_in_visa_repo>
   lineage:
-    image: gcr.io/prophecy-deployments/lineageweb:visa
+    image: <replace_with_lineage_image_in_visa_repo>
   utweb:
-    image: gcr.io/prophecy-deployments/utweb:visa
+    image: <replace_with_utweb_image_in_visa_repo>
   pkg_manager:
-    image: gcr.io/prophecy-deployments/pkg-manager:1.1
+    image: <replace_with_pkgmanager_image_in_visa_repo>
   size: 3
   name: prophecy
   externalstorage:

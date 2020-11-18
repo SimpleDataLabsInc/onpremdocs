@@ -44,14 +44,14 @@ spec:
         prophecy.io/component: "openidfederator"
     spec:
       imagePullSecrets:
-      - name: prophecyregcred
+      - name: <replace_with_secret_of_visa_repo>
       containers:
       - name: openidfederator
-        image: gcr.io/prophecy-deployments/openidfederator:latest
+        image: <replace_with_openidfederator_image_in_visa_repo>
         imagePullPolicy: Always
         env:
         - name: issuer
-          value: http://federatorvisa.prophecy.visa.cloud.prophecy.io
+          value: <replace_with_federator_ingress>
         ports:
         - containerPort: 5556
         volumeMounts:

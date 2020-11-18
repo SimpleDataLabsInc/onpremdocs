@@ -17,7 +17,7 @@ metadata:
       }
 spec:
   rules:
-    - host: metagraph.prophecy.visa.cloud.prophecy.io
+    - host: <replace_with_metagraph_ingress>
       http:
         paths:
           - path: /(.*)

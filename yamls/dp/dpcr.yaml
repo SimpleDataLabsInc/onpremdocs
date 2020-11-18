@@ -10,35 +10,31 @@ spec:
   team: ""
   disable_fluentbit_sidecar: true
   path-prefix: "/storage"
-  spark_execution_provider: databricks
-  databricks_url: https://adb-8455083404888159.19.azuredatabricks.net
-  databricks_org_id: "8.455083404888159e+15"
-  databricks_prophecy_jar_path: dbfs:/FileStore/jars/prophecy_rajat.jar
-  databricks_token: dapiabe69f87c5c8c9e26a38df220d66419a
+  spark_execution_provider: ""
+  databricks_url: ""
+  databricks_org_id: ""
+  databricks_prophecy_jar_path: ""
+  databricks_token: ""
   enabledapps: execution,pkg_manager,sparkhistory
   postgres_host: postgres
   bootup:
     bootup-volume:
       volumename: nfs-init-common-pv
   execution:
-    image: gcr.io/prophecy-deployments/execution:remotes_origin_rajat_issue_2249
-    execution_url: http://execution.dp.prophecy.visa.cloud.prophecy.io
-    metagraph_host: metagraph.prophecy.visa.cloud.prophecy.io
-    codegen_host: cgweb.prophecy.visa.cloud.prophecy.io
-    sparkedge_host: sparkedge.prophecy.visa.cloud.prophecy.io
+    image: <replace_with_execution_image_in_visa_repo>
+    execution_url: <replace_with_execution_ingress_without_http>
+    metagraph_host: <replace_with_metagraph_ingress_without_http>
+    codegen_host: <replace_with_codegen_ingress_without_http>
+    sparkedge_host: <replace_with_sparkedge_ingress_without_http>
     metagraph_port: 80
     codegen_port: 80
     sparkedge_port: 80
     # Check why are we passing url like this. It can be accessed on internal network too.
     sparkhistory_url: http://sparkhistory.dp.prophecy.visa.cloud.prophecy.io
-  postgres:
-    image: gcr.io/prophecy-deployments/release_southwest_v0.1/postgres-sdl:latest
-    postgres-log-volume:
-      volumename: postgres-log-volume-dp-prophecy
   pkg_manager:
-    image: gcr.io/prophecy-deployments/pkg-manager:1.0
+    image:  <replace_with_pkgmanager_image_in_visa_repo>
   sparkhistory:
-    image: gcr.io/prophecy-deployments/spark-history:visa
+    image:  <replace_with_sparkhistory_image_in_visa_repo>
   externalstorage:
     storagetype: nfs
     storageclassname: nfs

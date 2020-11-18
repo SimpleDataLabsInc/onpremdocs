@@ -8,7 +8,7 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: "/export/prophecy_pgdata"
+    path: "<replace_with_path_on_hostpath>"
   persistentVolumeReclaimPolicy: Retain
   storageClassName: localpath
   volumeMode: Filesystem

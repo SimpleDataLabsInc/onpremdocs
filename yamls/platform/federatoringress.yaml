@@ -13,7 +13,7 @@ metadata:
   namespace: prophecy
 spec:
   rules:
-  - host: federatorvisa.prophecy.visa.cloud.prophecy.io
+  - host: <replace_with_federator_ingress>
     http:
       paths:
       - backend:

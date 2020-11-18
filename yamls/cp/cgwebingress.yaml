@@ -11,7 +11,7 @@ metadata:
     nginx.org/client-max-body-size: 100m
 spec:
   rules:
-    - host: cgweb.prophecy.visa.cloud.prophecy.io
+    - host: <replace_with_cgweb_ingress>
       http:
         paths:
           - path: /(.*)

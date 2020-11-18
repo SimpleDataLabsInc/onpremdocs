@@ -11,8 +11,8 @@ spec:
     - hard
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: /export/prophecy_pglog
-    server: 172.20.44.233
+    path: <replace_with_path_on_nfs_server>
+    server: <replace_with_nfs_server_ip>
   storageClassName: nfs
   volumeMode: Filesystem
 

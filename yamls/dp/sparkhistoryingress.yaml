@@ -12,7 +12,7 @@ metadata:
     nginx.org/client-max-body-size: 100m
 spec:
   rules:
-    - host: sparkhistory.dp.prophecy.visa.cloud.prophecy.io
+    - host: <replace_with_sparkhistory_ingress>
       http:
         paths:
           - path: /(.*)
