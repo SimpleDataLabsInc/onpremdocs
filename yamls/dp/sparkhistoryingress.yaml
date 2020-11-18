@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prophecy-dataplane-sparkhistory
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: prophecy-letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.org/client-max-body-size: 100m
+spec:
+  rules:
+    - host: sparkhistory.dp.prophecy.visa.cloud.prophecy.io
+      http:
+        paths:
+          - path: /(.*)
+            backend:
+              serviceName: sparkhistory
+              servicePort: 18080
+

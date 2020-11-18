@@ -1,0 +1,73 @@
+apiVersion: prophecy.simpledatalabs.inc/v1
+kind: ProphecyCluster
+metadata:
+  name: prophecy
+spec:
+  # Add fields here
+  prophecyclustername: prophecy
+  prophecyclusterid: "0XC0000001"
+  namespace: prophecy
+  disable_fluentbit_sidecar: true
+  path-prefix: "/storage"
+  prophecy_jar_name: prophecy-libs-assembly-1.0.jar
+  prophecy_libs_jar_name: prophecy-libs_2.11-1.0.jar
+  tenant_name: prophecy
+  customer_name: visa
+  enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager
+  auth-backend: ldap
+  openid-connector-id: ldapvisa
+  openid-federator-host: federatorvisa.prophecy.visa.cloud.prophecy.io
+  bootup:
+    bootup-volume:
+      volumename: nfs-init-common-pv
+  app:
+    image: gcr.io/prophecy-deployments/app:visa
+    loggingurl: ""
+    monitoringurl: ""
+    openid-client-id: visaprophecyapp
+    openid-federator-port: "80"
+    openid-issuer-url: http://federatorvisa.prophecy.visa.cloud.prophecy.io
+    openid-redirect-ui: http://0.0.0.0:5555/callback
+  postgres:
+    image: gcr.io/prophecy-deployments/release_southwest_v0.1/postgres-sdl:latest
+    postgres-log-volume:
+      volumename: postgres-log-volume-prophecy
+    postgres-volume:
+      accessmode: ReadWriteOnce
+      storageclassname: localpath
+      storagetype: local
+      volumename: postgres-hp-volume-prophecy
+  metagraph:
+    image: gcr.io/prophecy-deployments/metadatagraph:visa
+    enable-git-manager: true
+    metagraph-projectrepos-volume:
+      accessmode: ReadWriteOnce
+      storageclassname: localpath
+      storagetype: local
+      volumename: metagraph-projectrepos-hp-volume-prophecy
+  gitserver:
+    image: gcr.io/prophecy-deployments/release_southwest_v0.1/gitserver:latest
+    git-log-volume:
+      volumename: gitserver-log-volume-prophecy
+    git-volume:
+      accessmode: ReadWriteOnce
+      storageclassname: localpath
+      storagetype: local
+      volumename: gitserver-hp-volume-prophecy
+  cgweb:
+    image: gcr.io/prophecy-deployments/codegenweb:visa
+  sparkedge:
+    image: gcr.io/prophecy-deployments/sparkedge:visa
+  lineage:
+    image: gcr.io/prophecy-deployments/lineageweb:visa
+  utweb:
+    image: gcr.io/prophecy-deployments/utweb:visa
+  pkg_manager:
+    image: gcr.io/prophecy-deployments/pkg-manager:1.1
+  size: 3
+  name: prophecy
+  externalstorage:
+    storagetype: nfs
+    storageclassname: nfs
+    base-vol-name: cp-shared-vol
+

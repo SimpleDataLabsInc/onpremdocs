@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitserver-hp-volume-prophecy
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  hostPath:
+    path: "/export/prophecy_gitdata"
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: localpath
+  volumeMode: Filesystem

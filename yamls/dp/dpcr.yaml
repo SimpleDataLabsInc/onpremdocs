@@ -1,0 +1,46 @@
+apiVersion: prophecy.simpledatalabs.inc/v1
+kind: ProphecyDataPlane
+metadata:
+  name: prophecy
+spec:
+  name: prophecy
+  namespace: prophecy
+  tenant_name: prophecy
+  customer_name: visa
+  team: ""
+  disable_fluentbit_sidecar: true
+  path-prefix: "/storage"
+  spark_execution_provider: databricks
+  databricks_url: https://adb-8455083404888159.19.azuredatabricks.net
+  databricks_org_id: "8.455083404888159e+15"
+  databricks_prophecy_jar_path: dbfs:/FileStore/jars/prophecy_rajat.jar
+  databricks_token: dapiabe69f87c5c8c9e26a38df220d66419a
+  enabledapps: execution,pkg_manager,sparkhistory
+  postgres_host: postgres
+  bootup:
+    bootup-volume:
+      volumename: nfs-init-common-pv
+  execution:
+    image: gcr.io/prophecy-deployments/execution:remotes_origin_rajat_issue_2249
+    execution_url: http://execution.dp.prophecy.visa.cloud.prophecy.io
+    metagraph_host: metagraph.prophecy.visa.cloud.prophecy.io
+    codegen_host: cgweb.prophecy.visa.cloud.prophecy.io
+    sparkedge_host: sparkedge.prophecy.visa.cloud.prophecy.io
+    metagraph_port: 80
+    codegen_port: 80
+    sparkedge_port: 80
+    # Check why are we passing url like this. It can be accessed on internal network too.
+    sparkhistory_url: http://sparkhistory.dp.prophecy.visa.cloud.prophecy.io
+  postgres:
+    image: gcr.io/prophecy-deployments/release_southwest_v0.1/postgres-sdl:latest
+    postgres-log-volume:
+      volumename: postgres-log-volume-dp-prophecy
+  pkg_manager:
+    image: gcr.io/prophecy-deployments/pkg-manager:1.0
+  sparkhistory:
+    image: gcr.io/prophecy-deployments/spark-history:visa
+  externalstorage:
+    storagetype: nfs
+    storageclassname: nfs
+    base-vol-name: cp-shared-vol
+
