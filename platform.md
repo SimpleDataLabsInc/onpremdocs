@@ -67,6 +67,8 @@ spec:
 **Note**: _These volumes will be referred in persistentvolumeclaim yaml. So, any changes in the names of volumes should 
 be made in persistentvolumeclaim too_.
 
+**Things to check**: _Please verify that a volume of 5 GB with with name given in above yaml, and with policy as `Retain` is created with nfs as storage class._
+
 
 ## Namespace scoped Resources
 This section contains the yaml files for the namespace scoped resources needed for deployment.
@@ -151,7 +153,9 @@ spec:
 </p>
 </details>
 
-Note that the appropriate operator image and docker image registry secretname is to be passed in the above yaml.
+**Note** An appropriate operator image and docker image registry secretname is to be passed in the above yaml.
+
+**Things to check**: _A persistent volume claim, a service and a deployment with a single pod is created with the name mentioned in above yamls._
 
 ### Ingress Resources
 The yamls for ingress resources for exposing openid federator service outside the K8s cluster are given below.
@@ -186,6 +190,8 @@ spec:
 ```
 </p>
 </details>
+
+**Things to check** _An ingress with name given in above yaml is created_
 
 ## Registration
 Admin needs to register their LDAP IDP and Prophecy App(Deployed under controlplane) with OpenID Federator. Prophecy provides a CLI tool, ProCtl and that can be used to register both IDP and App.
@@ -298,6 +304,8 @@ connectors:
 </p>
 </details>
 
+**Things to check** _Please check if you get a message `Registered IDP with federator` as an output of above command. In case of error, please contact Prophecy Support_
+
 ### Prophecy App Registration
 1. Run proctl and get into proctl shell.
 ```
@@ -336,3 +344,5 @@ apps:
 </details>
 
 **Note**  _The idpid (ldapvisa) used in above appregistration.yaml and visaldapregistration.yaml is same. If you change it at one place, please change it other place as well._
+
+**Things to check** _Please check if you get a message `Registered App with federator` as an output of above command. In case of error, please contact Prophecy Support_

@@ -1,4 +1,4 @@
-# 4. Backup Tool
+# Prophecy Backup Tool
 
 Deployment of backup tool requires installing bunch of global resources followed by namespace scoped resources as listed below -
 * Global Resources

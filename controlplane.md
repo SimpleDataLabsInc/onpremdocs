@@ -148,6 +148,8 @@ spec:
 be made in CR too. Also as mentioned before, `nfs path` for all above yamls needs to be exported in NFS server. Also note that `postgres-volume-cp`, 
 `gitserver-volume-cp` and `metagraph-volume-cp` are localpath based volume, and the storage class name used in this yaml should be changed to correct storage class._
 
+**Things to check** _Persistent volumes with appropriate name, size and policy are created in system_
+
 ### ProphecyCluster CRD
 
 <details><summary>ProphecyCluster CRD YAML File</summary>
@@ -1576,6 +1578,8 @@ spec:
 </p>
 </details>
 
+**Things to check** _A CRD with name `prophecyclusters.prophecy.simpledatalabs.inc` is created in cluster. We can use `kubectl get crd` command to check the same._
+
 ## Namespace scoped Resources
 This section contains the yaml files for the namespace scoped resources needed for deployment.
 
@@ -1700,6 +1704,9 @@ roleRef:
 
 **Note** _The RoleBinding resource assumes namespace `cp` for the service account._
 
+**Things to check** _Please check if a role with name `prophecy-operator` is created. `kubectl -n <controlplanenamespace' get role` can be used to check the same. 
+Also we should see a rolebinding and a service account with name `prophecy-operator` should be created. `kubectl -n <controlplanenamespace' get rolebindings` and `kubectl -n <controlplanenamespace' get serviceaccounts` can be used to check the rolebinding and serviceaccount status respectively._
+
 ### Secret for Docker image registry
 
 The secret is expected to be created in advance by the infra-admin to provide access to the image registry and 
@@ -1764,6 +1771,8 @@ spec:
 </details>
 
 Note that the appropriate operator image and docker image registry secretname is to be passed in the above yaml.
+
+**Things to check** _A deployment with a pod for prophecy operator should be created after deploying above yaml._
 
 ### Ingress Resources
 The yamls for ingress resources for exposing some services outside the K8s cluster are given below.
@@ -1923,6 +1932,8 @@ spec:
 **Note** _The annotation `cert-manager.io/cluster-issuer: prophecy-letsencrypt` in `prophecy-app` and `prophecy-gitserver` 
 ingress resources. This needs to be changed based on the certificate issuer being used for cert-management._
 
+**Things to check** _Please verify if all the ingress points given in above yaml are created._
+
 ### ProphecyCluster CR
 The yaml for deploying this custom resource is given below. This resource is managed by the controlplane operator deployed 
 above and it takes care of deploying and managing all Prophecy components. 
@@ -1947,18 +1958,18 @@ spec:
   tenant_name: cp
   customer_name: visa
   image_registry_secret: <registry-secret-name>
+  auth-backend: ldap
+  openid-federator-host: federator.prophecy.visa.cloud.prophecy.io
+  openid-connector-id: ldapvisa
   enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager
   bootup:
     bootup-volume:
       volumename: nfs-init-pv-cp
   app:
-    auth-backend: ldap
     image: <app-image>:latest
     loggingurl: ""
     monitoringurl: ""
     openid-client-id: visaprophecyapp
-    openid-connector-id: ldapvisa
-    openid-federator-host: federator.prophecy.visa.cloud.prophecy.io
     openid-federator-port: "80"
     openid-issuer-url: http://federator.prophecy.visa.cloud.prophecy.io
     openid-redirect-ui: http://0.0.0.0:5555/callback
@@ -2035,5 +2046,18 @@ spec:
     * _metagraph.metagraph-project-repos_
 
    _of above CR should be passed with appropriate Persistent volume names as defined during creation of Persistent Volumes._
+
+**Things to check** 
+* _A custom resource of type `ProphecyCluster` is created. `kubectl -n <controlplanenamespace> get ProphecyCluster` will tell you the same._
+
+* _Please run `kubectl -n <controlplanenamespace> get deployments`, `kubectl -n <controlplanenamespace> get pods` to verify if we see all the deployments/pods for the apps listed here: https://github.com/SimpleDataLabsInc/onpremdocs#list-of-apps-1._
+
+*  _Please run `kubectl -n <controlplanenamespace> get pvc` to check if there is a pvc created for all the PVs mentioned in this section : https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/controlplane.md#persistent-volumes. Also please verify if they are in bounded state._
+
+* _Once all pods are in running state, you should be able to access prophecy app with the ingress url provided for `prophecy-app` : https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/controlplane.md#ingress-resources. If you have used this yaml as it is, then it will be : https://cp.visa.cloud.prophecy.io_  
+
+* _At this stage you should be able to login with your LDAP crdentials and follow our in-app tour to navigate the rest of the feature._
+
+Please contact Prophecy Support in case you see problem in any of the above steps. 
 
 

@@ -101,6 +101,7 @@ spec:
 be made in CR too. Also as mentioned before, `nfs path` for all above yamls needs to be exported in NFS server. Also note that `postgres-volume-cp-dp` 
 is a localpath based volume, and the storage class name used in this yaml should be changed to correct storage class._
 
+**Things to check** _Persistent volumes with appropriate name, size and policy are created in system_
 
 ### ProphecyDataPlane CRD
 
@@ -779,6 +780,8 @@ spec:
 </p>
 </details>
 
+**Things to check** _A CRD with name `prophecydataplanes.prophecy.simpledatalabs.inc` is created in cluster. We can use `kubectl get crd` command to check the same._
+
 ## Namespace scoped Resources
 This section contains the yaml files for the namespace scoped resources needed for deployment.
 
@@ -900,7 +903,10 @@ roleRef:
 </p>
 </details>
 
-Note that the RoleBinding resource assumes namespace `dp` for the service account.
+**Note** The RoleBinding resource assumes namespace `dp` for the service account.
+
+**Things to check** _Please check if a role with name `prophecy-dataplane-operator` is created. `kubectl -n <dataplanenamespace' get role` can be used to check the same. 
+Also we should see a rolebinding and a service account with name `prophecy-operator` should be created. `kubectl -n <dataplanenamespace' get rolebindings` and `kubectl -n <dataplanenamespace' get serviceaccounts` can be used to check the rolebinding and serviceaccount status respectively._
 
 ### Secret for Docker image registry
 
@@ -961,6 +967,8 @@ spec:
 </details>
 
 **Note** _An appropriate operator image and docker image registry secretname is to be passed in the above yaml._
+
+**Things to check** _A deployment with a pod for prophecy dataplane operator should be created after deploying above yaml._
 
 ### Ingress Resources
 The yamls for ingress resources for exposing some services outside the K8s cluster are given below.
@@ -1029,6 +1037,8 @@ spec:
 
 **Note** The annotation `cert-manager.io/cluster-issuer: prophecy-letsencrypt` in above  
 ingress resources. This needs to be changed based on the certificate issuer being used for cert-management.  
+
+**Things to check** _Please verify if all the ingress points given in above yaml are created._
 
 ### ProphecyDataPlane CR
 The yaml for deploying this custom resource is given below. This resource is managed by the dataplane operator deployed 
@@ -1107,4 +1117,13 @@ spec:
     
     _should be passed based on the hostnames provided in ingress resources during this and controlplane deployment._
     
+**Things to check** 
+* _A custom resource of type `ProphecyDataPlane` is created. `kubectl -n <dataplanenamespace> get ProphecyDataPlane` will tell you the same._
 
+* _Please run `kubectl -n <dataplanenamespace> get deployments`, `kubectl -n <dataplanenamespace> get pods` to verify if we see all the deployments/pods for the apps listed here: https://github.com/SimpleDataLabsInc/onpremdocs#list-of-apps-2._
+
+*  _Please run `kubectl -n <dataplanenamespace> get pvc` to check if there is a pvc created for all the PVs mentioned in this section : https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/dataplane.md#persistent-volumes. Also please verify if they are in bounded state._
+
+* _At this stage you should be able to create fabric in prophecy app GUI and run workflow executions. Please contact Prophecy Support to help you for the same._
+
+Please contact Prophecy Support in case you see problem in any of the above steps. 
