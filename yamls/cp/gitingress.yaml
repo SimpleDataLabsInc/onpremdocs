@@ -18,10 +18,6 @@ metadata:
          return 403;
       }
 spec:
-  tls:
-    - hosts:
-        - <replace_with_gitserver_ingress>
-      secretName: <replace_with_gitserver_secret>
   rules:
     - host: <replace_with_gitserver_ingress>
       http:
