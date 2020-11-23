@@ -9,6 +9,7 @@ spec:
   namespace: prophecy
   disable_fluentbit_sidecar: true
   path-prefix: "/storage"
+  prophecy_file_server: http://pkg-manager:8800
   prophecy_jar_name: prophecy-libs-assembly-1.0.jar
   prophecy_libs_jar_name: prophecy-libs_2.11-1.0.jar
   tenant_name: prophecy
