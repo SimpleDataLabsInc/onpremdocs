@@ -3,12 +3,12 @@
 ![logo](logo.png)
 
 Prophecy application is deployed in three parts:
-## [Platform](https://github.com/SimpleDataLabsInc/prophecy/blob/visa_setup/docs/content/en/arch/deploy/visa-github/platform.md)
+## [Platform](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/platform.md)
 Set of apps responsible for managing authentication
 ### List of apps
 * Federator
 
-## [Control Plane](https://github.com/SimpleDataLabsInc/prophecy/blob/visa_setup/docs/content/en/arch/deploy/visa-github/controlplane.md) 
+## [Control Plane](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/controlplane.md)
 Set of apps responsible to serve the core prophecy app. 
 ### List of apps
 * App
@@ -22,7 +22,7 @@ Set of apps responsible to serve the core prophecy app.
 * Bootup manager
 * Package manager
 
-## [Data Plane](https://github.com/SimpleDataLabsInc/prophecy/blob/visa_setup/docs/content/en/arch/deploy/visa-github/dataplane.md) 
+## [Data Plane](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/dataplane.md)
 Set of apps responsible to manage execution fabric.
 ### List of apps
 * Execution
@@ -38,7 +38,7 @@ Set of apps responsible to manage execution fabric.
 ## Deployment process
 Please follow [Prophecy Images](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/prophecyimages.md) page to download prophecy apps and operator images.
 
-To deploy prophecy application, admin needs to deploy the [Platform](https://github.com/SimpleDataLabsInc/prophecy/blob/visa_setup/docs/content/en/arch/deploy/visa-github/platform.md) first, followed by [Controlplane](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/controlplane.md) and then [Dataplane](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/dataplane.md). Please follow the respective sections to deploy these components.
+To deploy prophecy application, admin needs to deploy the [Platform](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/platform.md) first, followed by [Controlplane](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/controlplane.md) and then [Dataplane](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/dataplane.md). Please follow the respective sections to deploy these components.
 
 To update prophecy cluster, please follow [Prophecy Upgrade] (https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/upgrade.md) page.
 

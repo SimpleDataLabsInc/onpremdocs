@@ -194,7 +194,7 @@ spec:
 **Things to check** _An ingress with name given in above yaml is created_
 
 ## Registration
-Admin needs to register their LDAP IDP and Prophecy App(Deployed under controlplane) with OpenID Federator. Prophecy provides a CLI tool, ProCtl and that can be used to register both IDP and App.
+Admin needs to register their LDAP IDP and Prophecy App(Deployed under controlplane) with OpenID Federator. Prophecy provides a CLI tool, [ProCtl](https://github.com/SimpleDataLabsInc/onpremdocs/tree/master/utils) and that can be used to register both IDP and App.
 
 ### IDP(LDAP) Registration
 1. Run proctl and get into proctl shell.
