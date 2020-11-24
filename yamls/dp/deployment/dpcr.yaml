@@ -29,8 +29,7 @@ spec:
     metagraph_port: 80
     codegen_port: 80
     sparkedge_port: 80
-    # Check why are we passing url like this. It can be accessed on internal network too.
-    sparkhistory_url: http://sparkhistory.dp.prophecy.visa.cloud.prophecy.io
+    sparkhistory_url: <replace_with_sparkhistory_ingress>
   pkg_manager:
     image:  <replace_with_pkgmanager_image_in_visa_repo>
   sparkhistory:
