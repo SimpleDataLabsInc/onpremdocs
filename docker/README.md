@@ -67,3 +67,40 @@ Deployment of dataplane requires
 * Creation of some volumes on host machine using `../dataplane/mkdirs.sh`
 * Making prophecy jars available on `livy server`
 * Running dataplane apps using `docker-compose -f ../dataplane/docker-compose.yml --env-file ../dataplane/.env up -d`
+
+### Registration
+Admin needs to register their LDAP IDP and Prophecy App(Deployed under controlplane) with OpenID Federator. Prophecy provides a CLI tool, [ProCtl](https://github.com/SimpleDataLabsInc/onpremdocs/tree/master/utils) and that can be used to register both IDP and App.
+
+#### IDP(LDAP) Registration
+1. Run proctl and get into proctl shell.
+```
+./proctl
+proctl »
+```
+2. Run auth register idp command with input as configfile and federator ingress url.
+```
+proctl » auth register idp --configfile <absolute path to idp registration yaml> --federatorurl <federator url exposed by ingress yaml>
+```
+A sample command will look like this:
+```
+proctl » auth register idp --configfile /Users/amexuser/amexldapregistration.yaml --federatorurl http://federator.prophecy.amex.cloud.prophecy.io
+Registered IDP with federator
+```
+
+#### Prophecy App Registration
+1. Run proctl and get into proctl shell.
+```
+./proctl
+proctl »
+```
+2. Run auth register app command with input as configfile and federator ingress url.
+```
+proctl » auth register app --configfile <absolute path to app registration yaml> --federatorurl <federator url exposed by ingress yaml>
+```
+A sample command will look like this:
+```
+proctl » auth register app --configfile /Users/amexuser/appregistration.yaml --federatorurl http://federator.prophecy.amex.cloud.prophecy.io
+Registered App with federator
+```
+
+
