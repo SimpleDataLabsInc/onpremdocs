@@ -68,10 +68,10 @@ Deployment of dataplane requires
 * Making prophecy jars available on `livy server`
 * Running dataplane apps using `docker-compose -f ../dataplane/docker-compose.yml --env-file ../dataplane/.env up -d`
 
-### Registration
+## Registration
 Admin needs to register their LDAP IDP and Prophecy App(Deployed under controlplane) with OpenID Federator. Prophecy provides a CLI tool, [ProCtl](https://github.com/SimpleDataLabsInc/onpremdocs/tree/master/utils) and that can be used to register both IDP and App.
 
-#### IDP(LDAP) Registration
+### IDP(LDAP) Registration
 1. Run proctl and get into proctl shell.
 ```
 ./proctl
@@ -87,7 +87,7 @@ proctl » auth register idp --configfile /Users/amexuser/amexldapregistration.ya
 Registered IDP with federator
 ```
 
-#### Prophecy App Registration
+### Prophecy App Registration
 1. Run proctl and get into proctl shell.
 ```
 ./proctl
