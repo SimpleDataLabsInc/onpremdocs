@@ -18,23 +18,79 @@ spec:
   enabledapps: execution,pkg_manager,sparkhistory
   postgres_host: postgres
   bootup:
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: "1"
+        memory: 1Gi
     bootup-volume:
       volumename: nfs-init-common-pv
   execution:
-    image: <replace_with_execution_image_in_visa_repo>
-    execution_url: <replace_with_execution_ingress_without_http>
-    metagraph_host: <replace_with_metagraph_ingress_without_http>
-    codegen_host: <replace_with_codegen_ingress_without_http>
-    sparkedge_host: <replace_with_sparkedge_ingress_without_http>
+    image: prophecy/execution:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+    execution_url: http://execution.stage.visa.com
+    metagraph_host: metagraph.stage.visa.com
+    codegen_host: cgweb.stage.visa.com
+    sparkedge_host: sparkedge.stage.visa.com
     metagraph_port: 80
     codegen_port: 80
     sparkedge_port: 80
     # Check why are we passing url like this. It can be accessed on internal network too.
-    sparkhistory_url: http://sparkhistory.dp.prophecy.visa.cloud.prophecy.io
+    sparkhistory_url: http://sparkhistory.stage.visa.com
   pkg_manager:
-    image:  <replace_with_pkgmanager_image_in_visa_repo>
+    image: prophecy/pkg-manager:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: "1"
+        memory: 1Gi
   sparkhistory:
-    image:  <replace_with_sparkhistory_image_in_visa_repo>
+    image: prophecy/spark-history:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: "1"
+        memory: 2Gi
   externalstorage:
     storagetype: nfs
     storageclassname: nfs
