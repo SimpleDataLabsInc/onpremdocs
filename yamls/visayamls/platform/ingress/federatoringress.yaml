@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/proxy-body-size: 100m
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.org/client-max-body-size: 100m
+  generation: 1
+  name: prophecy-openidfederator
+  namespace: prophecy
+spec:
+  rules:
+  - host: <replace_with_federator_ingress>
+    http:
+      paths:
+      - backend:
+          serviceName: openidfederator-service
+          servicePort: 5556
+        path: /(.*)
+        pathType: ImplementationSpecific

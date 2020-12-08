@@ -1,0 +1,3 @@
+resources:
+- executioningress.yaml
+- sparkhistoryingress.yaml

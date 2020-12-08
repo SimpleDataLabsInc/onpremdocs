@@ -1,0 +1,6 @@
+resources:
+- appingress.yaml
+- cgwebingress.yaml
+- gitingress.yaml
+- metagraphingress.yaml
+- sparkedgeingress.yaml

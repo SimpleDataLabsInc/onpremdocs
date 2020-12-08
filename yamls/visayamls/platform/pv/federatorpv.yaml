@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: federator-nfs-pv
+  labels:
+    prophecy.io/cluster: prophecy
+    prophecy.io/component: nfs
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  mountOptions:
+    - hard
+  nfs:
+    path: "<replace_with_path_on_nfs_server>"
+    server: <replace_with_nfs_server_ip>
+

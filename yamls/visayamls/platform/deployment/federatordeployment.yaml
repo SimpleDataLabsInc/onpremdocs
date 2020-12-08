@@ -1,0 +1,64 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: federator-nfs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: federator-nfs-pv
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: nfs
+
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "openidfederator-service"
+  labels:
+    prophecy.io/component: "openidfederator"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 5556
+    targetPort: 5556
+  selector:
+    prophecy.io/component: "openidfederator"
+  type: "LoadBalancer"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openidfederator
+  labels:
+    prophecy.io/component: "openidfederator"
+spec:
+  selector:
+    matchLabels:
+      prophecy.io/component: "openidfederator"
+  template:
+    metadata:
+      labels:
+        prophecy.io/component: "openidfederator"
+    spec:
+      imagePullSecrets:
+      - name: <replace_with_secret_of_visa_repo>
+      containers:
+      - name: openidfederator
+        image: <replace_with_openidfederator_image_in_visa_repo>
+        imagePullPolicy: Always
+        env:
+        - name: issuer
+          value: <replace_with_federator_ingress>
+        ports:
+        - containerPort: 5556
+        volumeMounts:
+        - mountPath: /etc/openidfederator
+          name: federator-nfs-pv
+      restartPolicy: Always
+      volumes:
+      - name: federator-nfs-pv
+        persistentVolumeClaim:
+          claimName: federator-nfs-pvc

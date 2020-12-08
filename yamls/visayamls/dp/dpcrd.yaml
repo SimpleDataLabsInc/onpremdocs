@@ -1,0 +1,741 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: prophecydataplanes.prophecy.simpledatalabs.inc
+spec:
+  group: prophecy.simpledatalabs.inc
+  names:
+    kind: ProphecyDataPlane
+    listKind: ProphecyDataPlaneList
+    plural: prophecydataplanes
+    singular: prophecydataplane
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: ProphecyDataPlane is the Schema for the prophecydataplanes API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: ProphecyDataPlaneSpec defines the desired state of ProphecyDataPlane
+          properties:
+            airflow:
+              properties:
+                airflow-dags-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                airflow-ext-service:
+                  type: boolean
+                airflow-log-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                airflow_base_url:
+                  description: Base URL for airflow webserver
+                  type: string
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of airflow instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each airflow replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+              type: object
+            aws_access_key_id:
+              type: string
+            aws_default_region:
+              type: string
+            aws_emr_ec2_instance_profile:
+              type: string
+            aws_emr_ec2_subnet_id:
+              type: string
+            aws_emr_log_uri:
+              type: string
+            aws_emr_machine_type:
+              type: string
+            aws_emr_prophecy_jar_path:
+              type: string
+            aws_emr_role:
+              type: string
+            aws_emr_version:
+              type: string
+            aws_secret_access_key:
+              type: string
+            aws_session_token:
+              type: string
+            bootup:
+              properties:
+                bootup-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                image:
+                  description: Image specifies the app image to use in the cluster.
+                  type: string
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of bootup instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: ResourceRequirements describes the compute resource
+                    requirements.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+              type: object
+            customer_name:
+              type: string
+            databricks_auto_termination_timeout:
+              type: string
+            databricks_org_id:
+              type: string
+            databricks_prophecy_jar_path:
+              type: string
+            databricks_token:
+              type: string
+            databricks_url:
+              type: string
+            disable_fluentbit_sidecar:
+              type: boolean
+            enable_kamon:
+              type: boolean
+            enabledapps:
+              type: string
+            execution:
+              properties:
+                codegen_host:
+                  type: string
+                codegen_port:
+                  type: integer
+                databricks_glue_enabled:
+                  type: boolean
+                execution-common-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                execution-dags-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                execution-ext-service:
+                  type: boolean
+                execution-log-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                execution_url:
+                  type: string
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                metagraph_host:
+                  type: string
+                metagraph_port:
+                  type: integer
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of execution instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each execution replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+                spark-event-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                spark-log-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                sparkedge_host:
+                  type: string
+                sparkedge_port:
+                  type: integer
+                sparkhistory_url:
+                  type: string
+              required:
+              - codegen_host
+              - codegen_port
+              - execution_url
+              - metagraph_host
+              - metagraph_port
+              type: object
+            externalstorage:
+              properties:
+                base-vol-name:
+                  description: This is the volume name used in bootup container volume
+                    Name and not the PV PVC name is computed using Volume name as
+                    <volume name>-pvc
+                  type: string
+                driver:
+                  type: string
+                provisioner:
+                  type: string
+                storageclassname:
+                  type: string
+                storagetype:
+                  type: string
+                volumehandle:
+                  type: string
+              type: object
+            extra_flags:
+              additionalProperties:
+                type: string
+              type: object
+            fabric:
+              type: string
+            fluentbitconfigname:
+              type: string
+            fluentbitelastichost:
+              type: string
+            fluentbitelasticpasswd:
+              type: string
+            fluentbitelasticport:
+              type: integer
+            fluentbitelasticuser:
+              type: string
+            image_registry_secret:
+              type: string
+            livy:
+              properties:
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                livy-common-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                livy-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of livy instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each livy replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+              type: object
+            livy_execution_mode:
+              type: string
+            livy_host:
+              type: string
+            livy_prophecy_jar_path:
+              type: string
+            name:
+              description: Name of the Data Plane
+              maxLength: 25
+              minLength: 1
+              pattern: ^[a-z0-9]([a-z0-9]*[a-z0-9])?$
+              type: string
+            namespace:
+              type: string
+            path-prefix:
+              description: "\tA common path prefix for all containers where the BaseVol
+                is mounted in all containers. Eg `/storage` as decided in discussions
+                with Vishal. This is not the actual path in NFS/EFS. Its the mount
+                path inside each app container."
+              type: string
+            pkg_manager:
+              properties:
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of pkg_manager instances to
+                    deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each pkg_manager replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+              type: object
+            postgres:
+              properties:
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                postgres-log-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                postgres-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of postgres instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each postgres replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+              type: object
+            postgres_host:
+              type: string
+            postgres_port:
+              type: integer
+            prophecy_jar_path:
+              type: string
+            redis:
+              properties:
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of redis instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each redis replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+              type: object
+            spark_execution_provider:
+              type: string
+            sparkhistory:
+              properties:
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of execution instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each execution replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+                spark-event-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                spark-log-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                sparkhistory-ext-service:
+                  type: boolean
+              type: object
+            superset:
+              properties:
+                image:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+                qosclass:
+                  description: PodQOSClass defines the supported qos classes of Pods.
+                  type: string
+                replicas:
+                  description: Replicas is the number of superset instances to deploy
+                  format: int32
+                  minimum: 0
+                  type: integer
+                resources:
+                  description: Resources determines the compute resources reserved
+                    for each superset replica.
+                  properties:
+                    limits:
+                      additionalProperties:
+                        type: string
+                      description: 'Limits describes the maximum amount of compute
+                        resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                    requests:
+                      additionalProperties:
+                        type: string
+                      description: 'Requests describes the minimum amount of compute
+                        resources required. If Requests is omitted for a container,
+                        it defaults to Limits if that is explicitly specified, otherwise
+                        to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                      type: object
+                  type: object
+                superset-common-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+                superset-log-volume:
+                  properties:
+                    accessmode:
+                      type: string
+                    appstoragerequest:
+                      description: 'Limit of Storage Request which will be available
+                        for all the prophecy apps for a given prophecy cluster Default
+                        value: 1Gi'
+                      type: string
+                    storageclassname:
+                      type: string
+                    storagetype:
+                      type: string
+                    volumename:
+                      type: string
+                  type: object
+              type: object
+            team:
+              type: string
+            tenant_name:
+              type: string
+          required:
+          - name
+          - namespace
+          type: object
+        status:
+          description: ProphecyDataPlaneStatus defines the observed state of ProphecyDataPlane
+          type: object
+      type: object
+  version: v1
+  versions:
+  - name: v1
+    served: true
+    storage: true

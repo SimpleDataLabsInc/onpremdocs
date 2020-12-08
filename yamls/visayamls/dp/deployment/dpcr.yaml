@@ -1,0 +1,42 @@
+apiVersion: prophecy.simpledatalabs.inc/v1
+kind: ProphecyDataPlane
+metadata:
+  name: prophecy
+spec:
+  name: prophecy
+  namespace: prophecy
+  tenant_name: prophecy
+  customer_name: visa
+  team: ""
+  disable_fluentbit_sidecar: true
+  path-prefix: "/storage"
+  spark_execution_provider: ""
+  databricks_url: ""
+  databricks_org_id: ""
+  databricks_prophecy_jar_path: ""
+  databricks_token: ""
+  enabledapps: execution,pkg_manager,sparkhistory
+  postgres_host: postgres
+  bootup:
+    bootup-volume:
+      volumename: nfs-init-common-pv
+  execution:
+    image: <replace_with_execution_image_in_visa_repo>
+    execution_url: <replace_with_execution_ingress_without_http>
+    metagraph_host: <replace_with_metagraph_ingress_without_http>
+    codegen_host: <replace_with_codegen_ingress_without_http>
+    sparkedge_host: <replace_with_sparkedge_ingress_without_http>
+    metagraph_port: 80
+    codegen_port: 80
+    sparkedge_port: 80
+    # Check why are we passing url like this. It can be accessed on internal network too.
+    sparkhistory_url: http://sparkhistory.dp.prophecy.visa.cloud.prophecy.io
+  pkg_manager:
+    image:  <replace_with_pkgmanager_image_in_visa_repo>
+  sparkhistory:
+    image:  <replace_with_sparkhistory_image_in_visa_repo>
+  externalstorage:
+    storagetype: nfs
+    storageclassname: nfs
+    base-vol-name: cp-shared-vol
+

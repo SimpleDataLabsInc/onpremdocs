@@ -1,0 +1,80 @@
+apiVersion: prophecy.simpledatalabs.inc/v1
+kind: ProphecyCluster
+metadata:
+  name: prophecy
+spec:
+  # Add fields here
+  prophecyclustername: prophecy
+  prophecyclusterid: "0XC0000001"
+  namespace: prophecy
+  disable_fluentbit_sidecar: true
+  path-prefix: "/storage"
+  prophecy_file_server: http://pkg-manager:8800
+  prophecy_jar_name: prophecy-libs-assembly-1.0.jar
+  prophecy_libs_jar_name: prophecy-libs_2.11-1.0.jar
+  tenant_name: prophecy
+  customer_name: visa
+  enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager
+  auth-backend: ldap
+  openid-connector-id: ldapvisa
+  openid-federator-host: federator.stage.visa.com
+  bootup:
+    bootup-volume:
+      volumename: nfs-init-common-pv
+  app:
+    image: prophecy/app:latest
+    loggingurl: ""
+    monitoringurl: ""
+    openid-client-id: visaprophecyapp
+    openid-federator-port: "80"
+    openid-issuer-url: https://federator.stage.visa.com
+    openid-redirect-ui: http://0.0.0.0:5555/callback
+    resources:
+      limits:
+        cpu: "2"
+        memory: 6Gi
+      requests:
+        cpu: "1"
+        memory: 4Gi
+  postgres:
+    image: prophecy/postgres-sdl:latest
+    postgres-log-volume:
+      volumename: postgres-log-volume-prophecy
+    postgres-volume:
+      accessmode: ReadWriteOnce
+      storageclassname: localpath
+      storagetype: local
+      volumename: postgres-hp-volume-prophecy
+  metagraph:
+    image: prophecy/metadatagraph:latest
+    enable-git-manager: true
+    metagraph-projectrepos-volume:
+      accessmode: ReadWriteOnce
+      storageclassname: localpath
+      storagetype: local
+      volumename: metagraph-projectrepos-hp-volume-prophecy
+  gitserver:
+    image: prophecy/gitserver:latest
+    git-log-volume:
+      volumename: gitserver-log-volume-prophecy
+    git-volume:
+      accessmode: ReadWriteOnce
+      storageclassname: localpath
+      storagetype: local
+      volumename: gitserver-hp-volume-prophecy
+  cgweb:
+    image: prophecy/codegenweb:latest
+  sparkedge:
+    image: prophecy/sparkedge:latest
+  lineage:
+    image: prophecy/lineageweb:latest
+  utweb:
+    image: prophecy/utweb:latest
+  pkg_manager:
+    image: prophecy/pkg-manager:latest
+  size: 3
+  name: prophecy
+  externalstorage:
+    storagetype: nfs
+    storageclassname: nfs
+    base-vol-name: cp-shared-vol
