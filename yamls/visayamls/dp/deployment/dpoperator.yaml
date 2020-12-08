@@ -17,17 +17,29 @@ spec:
         release: prophecy
     spec:
       serviceAccountName: prophecy-dataplane-operator
-      imagePullSecrets:
-        - name:  <replace_with_secret_of_visa_repo>
-      securityContext: {}
+      securityContext:
+        runAsUser: 1001
+      nodeSelector:
+        pharos.io/pke-nodepool: default
+      tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
       containers:
         - name: prophecy-dataplane-operator
-          image:  <replace_with_dataplane_operator_image_in_visa_repo>
+          image: prophecy/dataplane-operator:latest
           imagePullPolicy: Always
           ports:
             - name: metrics
               containerPort: 8383
-          resources: {}
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: "1"
+              memory: 1Gi
           env:
             - name: WATCH_NAMESPACE
               valueFrom:
