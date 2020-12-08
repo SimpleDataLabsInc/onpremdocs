@@ -21,6 +21,23 @@ spec:
   bootup:
     bootup-volume:
       volumename: nfs-init-common-pv
+    nodeselector:
+      pharos.io/pke-nodepool: default
+    securityContext:
+      runAsUser: 1001
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: "1"
+        memory: 1Gi
+
   app:
     image: prophecy/app:latest
     securityContext:
