@@ -23,6 +23,22 @@ spec:
       volumename: nfs-init-common-pv
   app:
     image: prophecy/app:latest
+    securityContext:
+      runAsUser: 1001
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
     loggingurl: ""
     monitoringurl: ""
     openid-client-id: visaprophecyapp
@@ -32,12 +48,26 @@ spec:
     resources:
       limits:
         cpu: "2"
-        memory: 6Gi
+        memory: 4Gi
       requests:
-        cpu: "1"
+        cpu: "2"
         memory: 4Gi
   postgres:
     image: prophecy/postgres-sdl:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
     postgres-log-volume:
       volumename: postgres-log-volume-prophecy
     postgres-volume:
@@ -47,6 +77,20 @@ spec:
       volumename: postgres-hp-volume-prophecy
   metagraph:
     image: prophecy/metadatagraph:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "3"
+        memory: 8Gi
+      requests:
+        cpu: "3"
+        memory: 8Gi
     enable-git-manager: true
     metagraph-projectrepos-volume:
       accessmode: ReadWriteOnce
@@ -55,6 +99,20 @@ spec:
       volumename: metagraph-projectrepos-hp-volume-prophecy
   gitserver:
     image: prophecy/gitserver:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
     git-log-volume:
       volumename: gitserver-log-volume-prophecy
     git-volume:
@@ -64,14 +122,84 @@ spec:
       volumename: gitserver-hp-volume-prophecy
   cgweb:
     image: prophecy/codegenweb:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "3"
+        memory: 8Gi
+      requests:
+        cpu: "3"
+        memory: 8Gi
   sparkedge:
     image: prophecy/sparkedge:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: "1"
+        memory: 2Gi
   lineage:
     image: prophecy/lineageweb:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: "1"
+        memory: 2Gi
   utweb:
     image: prophecy/utweb:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 2Gi
+      requests:
+        cpu: "1"
+        memory: 2Gi
   pkg_manager:
     image: prophecy/pkg-manager:latest
+    nodeSelector:
+      pharos.io/pke-nodepool: default
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: "1"
+        memory: 1Gi
   size: 3
   name: prophecy
   externalstorage:
