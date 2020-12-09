@@ -22,6 +22,7 @@ Prophecy images can be accessed and downloaded with a service account. Please fo
 * List of images to download
 
   - gcr.io/visa-294603/app:latest
+  - gcr.io/visa-294603/metadataui:latest
   - gcr.io/visa-294603/codegenweb:latest
   - gcr.io/visa-294603/dataplane-operator:latest
   - gcr.io/visa-294603/execution:latest
