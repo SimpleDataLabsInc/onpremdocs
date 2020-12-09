@@ -43,17 +43,32 @@ spec:
       labels:
         prophecy.io/component: "openidfederator"
     spec:
-      imagePullSecrets:
-      - name: <replace_with_secret_of_visa_repo>
+      securityContext:
+        runAsUser: 1001
+      nodeSelector:
+        pharos.io/pke-nodepool: default
+      tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
       containers:
       - name: openidfederator
-        image: <replace_with_openidfederator_image_in_visa_repo>
+        image: prophecy/openidfederator:latest
         imagePullPolicy: Always
         env:
         - name: issuer
-          value: <replace_with_federator_ingress>
+          value: federator.stage.prophecy.io
         ports:
         - containerPort: 5556
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi
+
         volumeMounts:
         - mountPath: /etc/openidfederator
           name: federator-nfs-pv

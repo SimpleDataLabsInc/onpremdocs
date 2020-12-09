@@ -11,9 +11,15 @@ metadata:
   generation: 1
   name: prophecy-openidfederator
   namespace: prophecy
+
+spec:
+    tls:
+    - secretName: prophecy-tls
+      hosts:
+      - federator.stage.visa.com
 spec:
   rules:
-  - host: <replace_with_federator_ingress>
+  - host: federator.stage.visa.com
     http:
       paths:
       - backend:

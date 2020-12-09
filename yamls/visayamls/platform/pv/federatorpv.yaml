@@ -16,6 +16,5 @@ spec:
   mountOptions:
     - hard
   nfs:
-    path: "<replace_with_path_on_nfs_server>"
-    server: <replace_with_nfs_server_ip>
-
+    path: "/pharos_484/federator"
+    server: SU73ISIDEV02NPBN.corpdev.visa.com
