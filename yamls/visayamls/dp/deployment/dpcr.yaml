@@ -20,7 +20,7 @@ spec:
   bootup:
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -40,7 +40,7 @@ spec:
     image: prophecy/execution:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -67,7 +67,7 @@ spec:
     image: prophecy/pkg-manager:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -85,7 +85,7 @@ spec:
     image: prophecy/spark-history:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
