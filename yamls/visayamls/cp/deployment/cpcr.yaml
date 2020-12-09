@@ -23,7 +23,7 @@ spec:
       volumename: nfs-init-common-pv
     nodeselector:
       pharos.io/pke-nodepool: default
-    securityContext:
+    securitycontext:
       runAsUser: 1001
     tolerations:
       - effect: NoSchedule
@@ -40,7 +40,7 @@ spec:
 
   app:
     image: prophecy/app:latest
-    securityContext:
+    securitycontext:
       runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
@@ -71,6 +71,8 @@ spec:
         memory: 4Gi
   postgres:
     image: prophecy/postgres-sdl:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -93,7 +95,9 @@ spec:
       storagetype: local
       volumename: postgres-hp-volume-prophecy
   metagraph:
-    image: prophecy/metadatagraph:latest
+    image: prophecy/metadatagraph:latest    
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -116,6 +120,8 @@ spec:
       volumename: metagraph-projectrepos-hp-volume-prophecy
   gitserver:
     image: prophecy/gitserver:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -139,6 +145,8 @@ spec:
       volumename: gitserver-hp-volume-prophecy
   cgweb:
     image: prophecy/codegenweb:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -155,6 +163,8 @@ spec:
         memory: 8Gi
   sparkedge:
     image: prophecy/sparkedge:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -171,6 +181,8 @@ spec:
         memory: 2Gi
   lineage:
     image: prophecy/lineageweb:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -187,6 +199,8 @@ spec:
         memory: 2Gi
   utweb:
     image: prophecy/utweb:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -203,6 +217,8 @@ spec:
         memory: 2Gi
   pkg_manager:
     image: prophecy/pkg-manager:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:

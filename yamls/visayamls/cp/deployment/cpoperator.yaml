@@ -19,6 +19,13 @@ spec:
       serviceAccountName: prophecy-operator
       securityContext:
         runAsUser: 1001
+      nodeSelector:
+        pharos.io/pke-nodepool: default
+      tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
       containers:
         - name: prophecy-operator
           image: prophecy/prophecy-operator:latest

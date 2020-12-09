@@ -18,6 +18,8 @@ spec:
   enabledapps: execution,pkg_manager,sparkhistory
   postgres_host: postgres
   bootup:
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -36,6 +38,8 @@ spec:
       volumename: nfs-init-common-pv
   execution:
     image: prophecy/execution:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -61,6 +65,8 @@ spec:
     sparkhistory_url: http://sparkhistory.stage.visa.com
   pkg_manager:
     image: prophecy/pkg-manager:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -77,6 +83,8 @@ spec:
         memory: 1Gi
   sparkhistory:
     image: prophecy/spark-history:latest
+    securitycontext:
+      runAsUser: 1001
     nodeSelector:
       pharos.io/pke-nodepool: default
     tolerations:
