@@ -14,7 +14,7 @@ spec:
   prophecy_libs_jar_name: prophecy-libs_2.11-1.0.jar
   tenant_name: prophecy
   customer_name: visa
-  enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager
+  enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager,metadataui
   auth-backend: ldap
   openid-connector-id: ldapvisa
   openid-federator-host: federator.stage.visa.com
@@ -42,7 +42,7 @@ spec:
     image: prophecy/app:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -69,11 +69,30 @@ spec:
       requests:
         cpu: "2"
         memory: 4Gi
+  metadataui:
+    image: prophecy/metadataui:latest
+    nodeselector:
+      pharos.io/pke-nodepool: default
+    securitycontext:
+      runAsUser: 1001
+    tolerations:
+      - effect: NoSchedule
+        key: pharos.io/pke-nodepool
+        operator: Equal
+        value: default
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: "1"
+        memory: 1Gi
+
   postgres:
     image: prophecy/postgres-sdl:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -98,7 +117,7 @@ spec:
     image: prophecy/metadatagraph:latest    
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -122,7 +141,7 @@ spec:
     image: prophecy/gitserver:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -147,7 +166,7 @@ spec:
     image: prophecy/codegenweb:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -165,7 +184,7 @@ spec:
     image: prophecy/sparkedge:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -183,7 +202,7 @@ spec:
     image: prophecy/lineageweb:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -201,7 +220,7 @@ spec:
     image: prophecy/utweb:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
@@ -219,7 +238,7 @@ spec:
     image: prophecy/pkg-manager:latest
     securitycontext:
       runAsUser: 1001
-    nodeSelector:
+    nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
       - effect: NoSchedule
