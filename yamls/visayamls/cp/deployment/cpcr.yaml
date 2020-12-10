@@ -17,7 +17,7 @@ spec:
   enabledapps: app,cgweb,gitserver,lineage,metagraph,postgres,sparkedge,utweb,pkgmanager,metadataui
   auth-backend: ldap
   openid-connector-id: ldapvisa
-  openid-federator-host: federator.stage.visa.com
+  openid-federator-host: openidfederator-service
   bootup:
     bootup-volume:
       volumename: nfs-init-common-pv
@@ -59,7 +59,7 @@ spec:
     loggingurl: ""
     monitoringurl: ""
     openid-client-id: visaprophecyapp
-    openid-federator-port: "80"
+    openid-federator-port: "5556"
     openid-issuer-url: https://federator.stage.visa.com
     openid-redirect-ui: http://0.0.0.0:5555/callback
     resources:

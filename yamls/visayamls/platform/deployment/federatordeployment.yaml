@@ -26,7 +26,6 @@ spec:
     targetPort: 5556
   selector:
     prophecy.io/component: "openidfederator"
-  type: "LoadBalancer"
 ---
 apiVersion: apps/v1
 kind: Deployment
