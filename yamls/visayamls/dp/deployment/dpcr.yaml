@@ -1,9 +1,9 @@
 apiVersion: prophecy.simpledatalabs.inc/v1
 kind: ProphecyDataPlane
 metadata:
-  name: prophecy
+  name: prophecydp
 spec:
-  name: prophecy
+  name: prophecydp
   namespace: prophecy
   tenant_name: prophecy
   customer_name: visa
