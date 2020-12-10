@@ -58,7 +58,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: issuer
-          value: federator.stage.prophecy.io
+          value: https://federator.stage.prophecy.io
         ports:
         - containerPort: 5556
         resources:
