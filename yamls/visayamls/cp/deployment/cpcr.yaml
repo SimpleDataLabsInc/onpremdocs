@@ -74,7 +74,7 @@ spec:
     nodeselector:
       pharos.io/pke-nodepool: default
     securitycontext:
-      runAsUser: 1001
+      runAsUser: 101
     tolerations:
       - effect: NoSchedule
         key: pharos.io/pke-nodepool

@@ -54,7 +54,7 @@ spec:
       requests:
         cpu: "2"
         memory: 4Gi
-    execution_url: http://execution.stage.visa.com
+    execution_url: https://execution.stage.visa.com
     metagraph_host: metagraph.stage.visa.com
     codegen_host: cgweb.stage.visa.com
     sparkedge_host: sparkedge.stage.visa.com
@@ -62,7 +62,7 @@ spec:
     codegen_port: 80
     sparkedge_port: 80
     # Check why are we passing url like this. It can be accessed on internal network too.
-    sparkhistory_url: http://sparkhistory.stage.visa.com
+    sparkhistory_url: https://sparkhistory.stage.visa.com
   pkg_manager:
     image: prophecy/pkg-manager:latest
     securitycontext:
