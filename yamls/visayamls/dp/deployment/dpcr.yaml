@@ -15,7 +15,7 @@ spec:
   databricks_org_id: ""
   databricks_prophecy_jar_path: ""
   databricks_token: ""
-  enabledapps: execution,pkg_manager,sparkhistory
+  enabledapps: execution,pkg_manager
   postgres_host: postgres
   bootup:
     securitycontext:
