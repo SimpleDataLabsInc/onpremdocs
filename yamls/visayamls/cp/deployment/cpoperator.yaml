@@ -19,6 +19,8 @@ spec:
       serviceAccountName: prophecy-operator
       securityContext:
         runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
       nodeSelector:
         pharos.io/pke-nodepool: default
       tolerations:

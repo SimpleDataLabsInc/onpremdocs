@@ -25,6 +25,8 @@ spec:
       pharos.io/pke-nodepool: default
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     tolerations:
       - effect: NoSchedule
         key: pharos.io/pke-nodepool
@@ -42,6 +44,8 @@ spec:
     image: prophecy/app:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -75,6 +79,8 @@ spec:
       pharos.io/pke-nodepool: default
     securitycontext:
       runAsUser: 101
+      runAsGroup: 1001
+      fsGroup: 1001
     tolerations:
       - effect: NoSchedule
         key: pharos.io/pke-nodepool
@@ -92,6 +98,8 @@ spec:
     image: prophecy/postgres-sdl:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -117,6 +125,8 @@ spec:
     image: prophecy/metadatagraph:latest    
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -141,6 +151,8 @@ spec:
     image: prophecy/gitserver:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -166,6 +178,8 @@ spec:
     image: prophecy/codegenweb:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -184,6 +198,8 @@ spec:
     image: prophecy/sparkedge:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -202,6 +218,8 @@ spec:
     image: prophecy/lineageweb:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -220,6 +238,8 @@ spec:
     image: prophecy/utweb:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
@@ -238,6 +258,8 @@ spec:
     image: prophecy/pkg-manager:latest
     securitycontext:
       runAsUser: 1001
+      runAsGroup: 1001
+      fsGroup: 1001
     nodeselector:
       pharos.io/pke-nodepool: default
     tolerations:
