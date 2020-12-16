@@ -141,7 +141,7 @@ spec:
       requests:
         cpu: "3"
         memory: 8Gi
-    enable-git-manager: true
+    enable-git-manager: false
     metagraph-projectrepos-volume:
       accessmode: ReadWriteOnce
       storageclassname: localpath
