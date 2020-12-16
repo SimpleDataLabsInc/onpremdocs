@@ -17,7 +17,7 @@ spec:
     hosts:
     - prophecy.stage.visa.com
   rules:
-    - host: prophecy.visa.cloud.prophecy.io
+    - host: prophecy.stage.visa.com
       http:
         paths:
           - path: /metadata((.*)|(/.*))
