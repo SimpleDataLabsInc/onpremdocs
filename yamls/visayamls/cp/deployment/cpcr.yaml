@@ -19,6 +19,7 @@ spec:
   openid-connector-id: ldapvisa
   openid-federator-host: openidfederator-service
   bootup:
+    image: runtime/busybox:1.32.0
     bootup-volume:
       volumename: nfs-init-common-pv
     nodeselector:
@@ -142,6 +143,7 @@ spec:
         cpu: "3"
         memory: 8Gi
     enable-git-manager: false
+    gitmanagerimage: prophecy/alpine/git:latest
     metagraph-projectrepos-volume:
       accessmode: ReadWriteOnce
       storageclassname: localpath
@@ -280,3 +282,5 @@ spec:
     storagetype: nfs
     storageclassname: nfs
     base-vol-name: cp-shared-vol
+  initcontainer:
+    busyboximage: runtime/busybox:1.32.0

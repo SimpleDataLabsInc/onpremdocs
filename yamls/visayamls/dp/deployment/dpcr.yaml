@@ -18,6 +18,7 @@ spec:
   enabledapps: execution,pkg_manager
   postgres_host: postgres
   bootup:
+    image: runtime/busybox:1.32.0
     securitycontext:
       runAsUser: 1001
       runAsGroup: 1001
@@ -111,4 +112,5 @@ spec:
     storagetype: nfs
     storageclassname: nfs
     base-vol-name: cp-shared-vol
-
+  initcontainer:
+    busyboximage: runtime/busybox:1.32.0
