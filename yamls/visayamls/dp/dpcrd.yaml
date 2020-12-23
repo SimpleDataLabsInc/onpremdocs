@@ -591,6 +591,51 @@ spec:
                 image:
                   description: Image specifies the app image to use in the data plane.
                   type: string
+                kerberos:
+                  properties:
+                    kerberosConfig:
+                      description: LocalObjectReference contains enough information
+                        to let you locate the referenced object inside the same namespace.
+                      properties:
+                        name:
+                          description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                            TODO: Add other useful fields. apiVersion, kind, uid?'
+                          type: string
+                      type: object
+                    kerberosKeytab:
+                      description: LocalObjectReference contains enough information
+                        to let you locate the referenced object inside the same namespace.
+                      properties:
+                        name:
+                          description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                            TODO: Add other useful fields. apiVersion, kind, uid?'
+                          type: string
+                      type: object
+                    kerberosURLs:
+                      additionalProperties:
+                        items:
+                          type: string
+                        type: array
+                      type: object
+                  required:
+                  - kerberosConfig
+                  - kerberosKeytab
+                  - kerberosURLs
+                  type: object
+                livy_auth:
+                  type: string
+                livy_auth_kerberos_keytabpath:
+                  type: string
+                livy_auth_kerberos_principal:
+                  type: string
+                livy_executors_cores:
+                  type: string
+                livy_executors_memgb:
+                  type: string
+                livy_impersonation_enabled:
+                  type: boolean
+                livy_url:
+                  type: string
                 metagraph_host:
                   type: string
                 metagraph_port:
@@ -869,6 +914,12 @@ spec:
               type: string
             image_registry_secret:
               type: string
+            initcontainer:
+              properties:
+                busyboximage:
+                  description: Image specifies the app image to use in the data plane.
+                  type: string
+              type: object
             livy:
               properties:
                 image:
