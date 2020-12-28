@@ -17,6 +17,8 @@ spec:
   databricks_token: ""
   enabledapps: execution,pkg_manager
   postgres_host: postgres
+  auth-backend: ldap
+  openid-issuer-url: https://federator.stage.visa.com
   bootup:
     image: runtime/busybox:1.32.0
     securitycontext:
