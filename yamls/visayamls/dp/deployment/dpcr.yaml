@@ -10,7 +10,7 @@ spec:
   team: ""
   disable_fluentbit_sidecar: true
   path-prefix: "/storage"
-  spark_execution_provider: ""
+  spark_execution_provider: "livy"
   databricks_url: ""
   databricks_org_id: ""
   databricks_prophecy_jar_path: ""
@@ -18,7 +18,11 @@ spec:
   enabledapps: execution,pkg_manager
   postgres_host: postgres
   auth-backend: ldap
-  openid-issuer-url: https://federator.stage.visa.com
+  openid-connector-id: ldapvisa
+  openid-federator-host: openidfederator-service
+  livy_host: <replace_with_livy_address>
+  livy_prophecy_jar_path: <replace_with_prophecy_jar_path>
+
   bootup:
     image: runtime/busybox:1.32.0
     securitycontext:
@@ -43,6 +47,23 @@ spec:
       volumename: nfs-init-common-pv
   execution:
     image: prophecy/execution:latest
+    kerberos:
+      kerberosConfig:
+        name: kerberos-conf
+      kerberosKeytab:
+        name: kerberos-keytab
+      kerberosURLs:
+        <replace_with_kerberos_ip>:
+        - <replace_with_kerberos_fqdn>
+        127.0.0.1:
+        - <replace_with_execution_pod_hostname>
+    livy_auth: "kerberos"
+    livy_auth_kerberos_principal: prophecy
+    livy_auth_kerberos_keytabpath: /etc/prophecy.keytab
+    openid-client-id: visaprophecyapp
+    openid-federator-port: "5556"
+    openid-issuer-url: https://federator.stage.visa.com
+    openid-redirect-ui: http://0.0.0.0:5555/callback
     securitycontext:
       runAsUser: 1001
       runAsGroup: 1001
