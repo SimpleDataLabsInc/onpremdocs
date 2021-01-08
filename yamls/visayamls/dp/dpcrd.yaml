@@ -644,6 +644,14 @@ spec:
                   additionalProperties:
                     type: string
                   type: object
+                openid-client-id:
+                  type: string
+                openid-federator-port:
+                  type: string
+                openid-issuer-url:
+                  type: string
+                openid-redirect-ui:
+                  type: string
                 qosclass:
                   description: PodQOSClass defines the supported qos classes of Pods.
                   type: string
@@ -1165,7 +1173,9 @@ spec:
               type: string
             namespace:
               type: string
-            openid-issuer-url:
+            openid-connector-id:
+              type: string
+            openid-federator-host:
               type: string
             path-prefix:
               description: "\tA common path prefix for all containers where the BaseVol
