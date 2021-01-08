@@ -68,7 +68,6 @@ spec:
     openid-issuer-url: https://federator.stage.visa.com
     openid-redirect-ui: http://0.0.0.0:5555/callback
     gitserver-iframe-enabled: false
-    gitserver-url: gitserver.stage.visa.com 
     resources:
       limits:
         cpu: "2"
