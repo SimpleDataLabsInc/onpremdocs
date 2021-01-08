@@ -2345,6 +2345,8 @@ spec:
                           type: string
                       type: object
                   type: object
+                skip-ssl-verification:
+                  type: boolean
                 tolerations:
                   items:
                     description: The pod this Toleration is attached to tolerates
@@ -3035,6 +3037,8 @@ spec:
                   additionalProperties:
                     type: string
                   type: object
+                offline-deployments:
+                  type: boolean
                 qosclass:
                   description: PodQOSClass defines the supported qos classes of Pods.
                   type: string
