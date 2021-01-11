@@ -124,7 +124,8 @@ spec:
       storagetype: local
       volumename: postgres-hp-volume-prophecy
   metagraph:
-    image: prophecy/metadatagraph:latest    
+    image: prophecy/metadatagraph:latest
+    skip-ssl-verification: true 
     securitycontext:
       runAsUser: 1001
       runAsGroup: 1001
