@@ -1,7 +1,0 @@
-resources:
-- commonpv.yaml
-- gitdatahppv.yaml
-- gitlogpv.yaml
-- metagraphprojhppv.yaml
-- pgdatahppv.yaml
-- pglogpv.yaml

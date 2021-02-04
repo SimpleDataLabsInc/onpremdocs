@@ -1,5 +1,0 @@
-resources:
-- deployment
-- ingress
-- pv
-- cpcrd.yaml
