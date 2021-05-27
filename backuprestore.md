@@ -1,7 +1,7 @@
 # Prophecy Backup Restore
 Customers can schedule periodic backup to a NFS server using prophecy backup cron pod. 
 
-##Deployment process for backup pod
+## Deployment process for backup pod
 Deployment of backup tool requires installing bunch of global resources followed by namespace scoped resources as listed below -
 * Global Resources
     1. Deploy Persistent Volume where the data would be backed up.
@@ -207,4 +207,4 @@ spec:
 **Note** _An appropriate backup-tool image path and docker image registry secretname should be passed in above yaml file. Also, 
 other parameters like `schedule`, `failedJobsHistoryLimit`, etc can be changed as per need._
 
-##Deployment process for restore pod
+## Deployment process for restore pod
