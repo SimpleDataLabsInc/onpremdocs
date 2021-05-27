@@ -1,5 +1,7 @@
-# Prophecy Backup Tool
+# Prophecy Backup Restore
+Customers can schedule periodic backup to a NFS server using prophecy backup cron pod. 
 
+##Deployment process for backup pod
 Deployment of backup tool requires installing bunch of global resources followed by namespace scoped resources as listed below -
 * Global Resources
     1. Deploy Persistent Volume where the data would be backed up.
@@ -19,10 +21,10 @@ Rest of the sections in this document focus on each of the yamls that need to be
 setup on your cluster. Also, the given yamls assume the deployment name to be `backup`. This can be changed as per need.
 
 
-## Global Resources
+### Global Resources
 This section contains the yaml files for the global resources needed for deployment.
 
-### Persistent Volumes
+#### Persistent Volumes
 The yaml for Persistent Volume creation is provided below. `<nfs-server-ip>` needs to be populated for it to work.
 Also, as mentioned above, it is assumed that the deployment name is `backup`. 
 
@@ -38,7 +40,7 @@ spec:
   accessModes:
     - ReadWriteMany
   capacity:
-    storage: 10Gi
+    storage: 30Gi
   mountOptions:
     - hard
   nfs:
@@ -56,10 +58,10 @@ spec:
 **Note** _This volume will be referred in yaml for Persistent Volume Claim. So, any changes in the name of volume should 
 be made in PVC yaml too. Also as mentioned before, `nfs path` for the above yaml needs to be exported in NFS server._
 
-## Namespace scoped Resources
+### Namespace scoped Resources
 This section contains the yaml files for the namespace scoped resources needed for deployment.
 
-### Roles, Service Accounts and Role-bindings
+#### Roles, Service Accounts and Role-bindings
 The yamls for the creation of role, service-account and role-binding are given below.
 
 <details><summary>Role, Service Account & Role-Binding YAML Files</summary>
@@ -108,12 +110,12 @@ roleRef:
 
 **Note** _The RoleBinding resource assumes namespace `prophecy` for the service account._
 
-### Secret for Docker image registry
+#### Secret for Docker image registry
 
 The secret is expected to be created in advance by the infra-admin to provide access to the image registry and 
 name of the secret is to be passed in Prophecy Controlplane Operator deployment yaml.
 
-### Deployment of Persistent Volume Claim
+#### Deployment of Persistent Volume Claim
 The PVC yaml corresponding to persistent volume deployed is given below.
 
 <details><summary>PVC YAML File</summary>
@@ -141,7 +143,7 @@ spec:
 
 Note that the `volumeName` in the above yaml should match the name of persistent volume created in above section.
 
-### CronJob for Backup
+#### CronJob for Backup
 The yaml for deploying cronjob for backup tool is given below.
 
 <details><summary>CronJob YAML File</summary>
@@ -204,3 +206,5 @@ spec:
 
 **Note** _An appropriate backup-tool image path and docker image registry secretname should be passed in above yaml file. Also, 
 other parameters like `schedule`, `failedJobsHistoryLimit`, etc can be changed as per need._
+
+##Deployment process for restore pod
