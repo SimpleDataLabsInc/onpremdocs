@@ -54,14 +54,41 @@ A chart with name "Kubernetes Cluster Overview" has services' availability detai
 
 ### Performance 
 #### Using kubectl 
+Please run below command to identify the service pod name:
+
+```
+kubectl -n prophecy get pods 
+```
+Please copy the name of the service from the 'Name' column and run below commands to get the cpu & ram usage of a Prophecy service.
+
+```
+kubectl -n prophecy top  pod <podname>
+```
+'top pod' does not support --watch option, so please use 'watch' command of your local machine if you want to keep monitoring the usage for a longer period.
 
 #### Using Grafana 
+Please follow instructions in [Monitoring document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/monitoring.md) to deploy Prophecy grafana charts. 
+A chart with name "Pod level details" has services' level performance details as well as entire 'prophecy' namespace resource usage. 
+Please choose "prophecy" as namespace in top level dropdown and appropriate service/container name.
 
 
 ### Capacity 
 #### Using kubectl 
+There is no direct way of checking the usage of a persistent volume using kubectl. You can get inside the container and check the usage by running 'df -h' there directly.
+Please run below command to identify the service pod name:
+
+```
+kubectl -n prophecy get pods 
+```
+Please copy the name of the service from the 'Name' column and run below commands to get inside the service container.
+
+```
+kubectl -n prophecy exec -it <podname> bash
+```
 
 #### Using Grafana 
+Please follow instructions in [Monitoring document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/monitoring.md) to deploy Prophecy grafana charts. 
+A chart with name "PVC level details" has all capacity related monitoring details. Please choose "prophecy" as namespace in top level dropdown.
 
 ## Debug 
 ### How to check Prophecy Service logs?
