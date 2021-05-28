@@ -208,3 +208,78 @@ spec:
 other parameters like `schedule`, `failedJobsHistoryLimit`, etc can be changed as per need._
 
 ## Deployment process for restore pod
+Deployment of restore tool requires access to the persistent volume used by backup cronjob/pod. 
+It can use the same Service account as used by backup cronjob/pod. To run restore tool, deployment of following
+namespace scoped resources is required - 
+
+* Namespace Scoped Resources
+    1. Deploy restore tool deployment yaml to run the restore script.
+    
+The above steps have been listed under the following assumptions:
+* There is a Persistent Volume used for backup that can be shared with restore pod.
+* There is a docker image registry setup which has docker images for this restore tool.
+* There are roles and permissions setup for backup cronjob which can be used by this restore tool.
+
+Rest of the sections in this document focus on the yamls that need to be deployed to get the Prophecy restore tool
+setup on your cluster. Also, the given yamls assume the deployment name to be `restore`. This can be changed as per need.
+
+#### Deployment for Restore
+The yaml for restore tool deployment is given below.
+
+<details><summary>Deployment YAML File</summary>
+<p>
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restore
+  namespace: prophecy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: restore
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: restore
+    spec:
+      containers:
+        - name: restore
+          image: <prophecy-restore-tool-image>:latest
+          imagePullPolicy: Always
+          resources: {}
+          env:
+            - name: PGUSER
+              value: sdl
+            - name: PGHOST
+              value: postgres
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - mountPath: /backup
+              name: backup-volume
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: <registry-secret-name>
+      serviceAccountName: backup
+      restartPolicy: OnFailure
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: backup-volume
+          persistentVolumeClaim:
+            claimName: backup-volume-pvc
+
+```
+</p>
+</details>
+
+**Note** _An appropriate restore-tool image path and docker image registry secretname should be passed in above yaml file. Also, 
+notice that `persistentVolumeClaim.claimName` is same as the one passed in CronJob yaml for backup tool._

@@ -36,4 +36,6 @@ Prophecy images can be accessed and downloaded with a service account. Please fo
   - gcr.io/visa-294603/sparkedge:latest
   - gcr.io/visa-294603/utweb:latest
   - gcr.io/visa-294603/openidfederator:latest
+  - gcr.io/visa-294603/backup:latest
+  - gcr.io/visa-294603/restore:latest
  
