@@ -207,6 +207,17 @@ spec:
 **Note** _An appropriate backup-tool image path and docker image registry secretname should be passed in above yaml file. Also, 
 other parameters like `schedule`, `failedJobsHistoryLimit`, etc can be changed as per need._
 
+#### OnDemand Backups
+On demand backups can be taken using the following command-
+```
+kubectl create job -n <namespace>  <job-name> --from=cronjob/<backup cronjob name>
+```
+
+A sample command assuming the names from above deployment would look like -
+```
+kubectl create job -n prophecy on-demand-backup --from=cronjob/backup
+```
+
 ## Deployment process for restore pod
 Deployment of restore tool requires access to the persistent volume used by backup cronjob/pod. 
 It can use the same Service account as used by backup cronjob/pod. To run restore tool, deployment of following
