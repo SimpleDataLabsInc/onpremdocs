@@ -17,6 +17,7 @@ Please follow instructions in [Backup document](https://github.com/SimpleDataLab
 Please follow instructions in [Restore document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/backuprestore.md#deployment-process-for-restore-pod)
 
 
+
 ## Monitor 
 ### How to monitor Availability?
 #### Using kubectl 
@@ -91,15 +92,18 @@ kubectl -n prophecy exec -it <podname> bash
 Please follow instructions in [Monitoring document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/monitoring.md) to deploy Prophecy grafana charts. 
 A chart with the name [PVC level details](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/yamls/grafana-charts/storageusageandprediction.json) has all capacity related monitoring details. Please choose "prophecy" as namespace in the top level dropdown.
 
+
+
 ## Debug 
 ### How to check Prophecy Service logs?
 Prophecy services logs are getting collected by node level log collection infra in Visa and you will be able to access any prophecy service log in the same way you access any other kubernetes application log in visa logging & monitoring system.
-Alternatively you can use kubectl to check the log of a service. Please run below command to identify the service pod name:
+
+Alternatively you can use kubectl to check the logs of a service. Please run below command to identify the service pod name:
 
 ```
 kubectl -n prophecy get pods 
 ```
-Please copy the name of the service from the 'Name' column and run below commands to get the logs of the service. 
+Please copy the name of the service from the 'Name' column and run below command to get the logs of the service. 
 
 ```
 kubectl -n prophecy logs  <podname>
@@ -111,7 +115,7 @@ Identify the service by running below command:
 kubectl -n prophecy get pods 
 ```
 
-Please copy the name of the service from the 'Name' column and run below commands to delete the service. Prophecy operator will restart the service again.
+Please copy the name of the service from the 'Name' column and run below command to delete the service. Prophecy operator will restart the service again.
 
 ```
 kubectl -n prophecy delete pod  <podname>
@@ -147,7 +151,7 @@ kubectl -n prophecy edit ProphecyCluster
 ```
 Once you are in edit mode, look for the service name, e.g. "metagraph:" and identify the "resource" section for this service. Increase/Decrease the resource in this section and save the file. 
 
-If the service is in DataPlane, please use below command to open the custom resource yaml in edit mode:
+If the service is in the DataPlane, please use below command to open the custom resource yaml in edit mode:
 ```
 kubectl -n prophecy edit ProphecyDataPlane
 ```
