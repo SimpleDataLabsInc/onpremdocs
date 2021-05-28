@@ -117,10 +117,48 @@ kubectl -n prophecy delete pod  <podname>
 ```
 
 ### What to do if I am facing slowness in my operations on Prophecy dashboard?
-Please check the [How to monitor Performance?](#how-to-monitor-performance) section above to check the resource utilization by different services. 
+Please check the [How to monitor Performance?](#how-to-monitor-performance) section above to check the resource utilization by different services.
+Also it will be helpful to monitor the 'Availability' as well, so that we are sure services are not in intermittent crash loop. 
+Please check the [How to monitor Availability?](#how-to-monitor-availability) section above to check the availability of different services.
 
-### How to change/update the prophecy kerberos keytab?
-
+If a service requires more resources, please follow instructions in [How to increase resources of a particular service?](#how-to-increase-resources-of-a-particular-service) to increase cpu/ram resources of a particular service.
 
 ### How to increase resources of a particular service?
+Prophecy services are divided in two different components, ControlPlane and DataPlane. We have two different operators managing these two components using kubernetes 'Custom Resources' with name 'ProphecyCluster' and 'ProphecyDataPlane' respectively. 
+These are the list of services for ControlPlane component in visa cluster:
+* app
+* metagraph
+* cgweb
+* gitserver
+* lineage
+* utweb
+* metadataui
+* edweb (0.7.x+ release)
+* webui(0.7.x+ release)
 
+These are the list of services for DataPlane component in visa cluster:
+* execution
+
+Identify the name of the service which requires resources changes. In below example, we are considering 'metagraph' as an example. Please run below command to open the Prophecy ControlPlane custom resource yaml in edit mode.
+
+```
+kubectl -n prophecy edit ProphecyCluster
+```
+Once you are in edit mode, look for service name, e.g. "metagraph:" and identify the "resource" section for this service. Increase/Decrease the resource in this section and save the file. 
+
+If the service is in DataPlane, please use below command to open the custom resource yaml in edit mode:
+```
+kubectl -n prophecy edit ProphecyDataPlane
+```
+
+### How to change/update the prophecy kerberos keytab?
+* Generate new keytab.
+* Delete the existing configmap for kerberos keytab using command:
+```
+kubectl -n prophecy delete cm kerberos-keytab
+```
+* Create the new configmap for kerberos keytab using command: 
+```
+kubectl -n prophecy create configmap kerberos-keytab --from-file <path of new keytab>
+```
+* Restart exeuction pod by following instructions in: [How to restart a particular Prophecy Service?](#how-to-restart-a-particular-prophecy-service)
