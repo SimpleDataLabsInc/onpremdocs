@@ -1,30 +1,30 @@
 # FAQs
 
 ## Manage
-### How to update Prophecy setup to next version?
+### How to update Prophecy setup to the next version?
 Please follow instructions in [Upgrade document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/upgraderollback.md)
 
-### How to rollback Prophecy setup to next version?
+### How to rollback Prophecy setup to the next version?
 Please follow instructions in [Rollback document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/upgraderollback.md)
 
-### How to setup periodic backup of Prophecy Cluster?
+### How to set up periodic backup of Prophecy Cluster?
 Please follow instructions in [Backup document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/backuprestore.md)
 
 ### How to take one time backup of Prophecy Cluster?
-Please follow instructions in [Backup document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/backuprestore.md)
+Please follow instructions in [Backup document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/backuprestore.md#ondemand-backups)
 
 ### How to restore a Prophecy Cluster?
-Please follow instructions in [Restore document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/backuprestore.md)
+Please follow instructions in [Restore document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/backuprestore.md#deployment-process-for-restore-pod)
 
 
 ## Monitor 
 ### How to monitor Availability?
 #### Using kubectl 
-Please run below commands to list down all the services running in prophecy cluster. 
+Please run below commands to list down all the services running in the Prophecy cluster. 
 ```
 kubectl -n prophecy get pods 
 ```
-A health state of cluster will look something like this:
+A healthy state of cluster will look something like this:
 ```
 NAME                                                      READY   STATUS             RESTARTS   AGE
 app-prophecy-78579cb95d-fzlx2                             1/1     Running            0          5h2m
@@ -46,11 +46,12 @@ sparkedge-prophecy-58dd567f75-p8fd8                       1/1     Running       
 utweb-prophecy-fcd4585b6-bsjwx                            1/1     Running            0          5h2m
 ```
 
-The 'Status' column should show all the applications as 'Running' and 'Ready' column should show be in 'x/x' format. If any application is not doing good, they will not be in 'Running' state. There is a possibility that they are in consistent restart loop and in that case you will see an increase 'Restarts' count for that particular application.
+The 'Status' column should show all the applications as 'Running', and 'Ready' column should be shown in 'x/x' format. If any application is not doing good, they will be in some state other than 'Running'. 
+There is a possibility that they a service is in restart loop and in that case you will see an increased 'Restarts' count for that particular service.
 
 #### Using Grafana 
 Please follow instructions in [Monitoring document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/monitoring.md) to deploy Prophecy grafana charts. 
-A chart with name "Kubernetes Cluster Overview" has services' availability details under "Namespace" section. Please choose "prophecy" as namespace in top level dropdown.
+A chart with the name [Kubernetes Cluster Overview](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/yamls/grafana-charts/k8sclusteroverview.json) has services' availability details under the "Namespace" section. Please choose "prophecy" as the namespace in the top level dropdown.
 
 ### How to monitor Performance?
 #### Using kubectl 
@@ -68,13 +69,13 @@ kubectl -n prophecy top  pod <podname>
 
 #### Using Grafana 
 Please follow instructions in [Monitoring document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/monitoring.md) to deploy Prophecy grafana charts. 
-A chart with name "Pod level details" has services' level performance details as well as entire 'prophecy' namespace resource usage. 
-Please choose "prophecy" as namespace in top level dropdown and appropriate service/container name.
+A chart with the name [Pod level details](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/yamls/grafana-charts/podusage.json) has services level performance details, as well as entire 'prophecy' namespace resource usage details. 
+Please choose "prophecy" as the namespace in the top level dropdown and appropriate service/container name.
 
 
 ### How to monitor Capacity? 
 #### Using kubectl 
-There is no direct way of checking the usage of a persistent volume using kubectl. You can get inside the container and check the usage by running 'df -h' there directly.
+There is no direct way of checking the usage of a persistent volume using kubectl. You can get inside the container and check the usage by running 'df -h' command.
 Please run below command to identify the service pod name:
 
 ```
@@ -88,7 +89,7 @@ kubectl -n prophecy exec -it <podname> bash
 
 #### Using Grafana 
 Please follow instructions in [Monitoring document](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/monitoring.md) to deploy Prophecy grafana charts. 
-A chart with name "PVC level details" has all capacity related monitoring details. Please choose "prophecy" as namespace in top level dropdown.
+A chart with the name [PVC level details](https://github.com/SimpleDataLabsInc/onpremdocs/blob/master/yamls/grafana-charts/storageusageandprediction.json) has all capacity related monitoring details. Please choose "prophecy" as namespace in the top level dropdown.
 
 ## Debug 
 ### How to check Prophecy Service logs?
@@ -116,15 +117,15 @@ Please copy the name of the service from the 'Name' column and run below command
 kubectl -n prophecy delete pod  <podname>
 ```
 
-### What to do if I am facing slowness in my operations on Prophecy dashboard?
+### What to do if I am facing slowness in my operations on the Prophecy dashboard?
 Please check the [How to monitor Performance?](#how-to-monitor-performance) section above to check the resource utilization by different services.
-Also it will be helpful to monitor the 'Availability' as well, so that we are sure services are not in intermittent crash loop. 
+Also it will be helpful to monitor the 'Availability' as well, so that we are sure services are not in an intermittent crash loop. 
 Please check the [How to monitor Availability?](#how-to-monitor-availability) section above to check the availability of different services.
 
 If a service requires more resources, please follow instructions in [How to increase resources of a particular service?](#how-to-increase-resources-of-a-particular-service) to increase cpu/ram resources of a particular service.
 
 ### How to increase resources of a particular service?
-Prophecy services are divided in two different components, ControlPlane and DataPlane. We have two different operators managing these two components using kubernetes 'Custom Resources' with name 'ProphecyCluster' and 'ProphecyDataPlane' respectively. 
+Prophecy services are divided in two different components, ControlPlane and DataPlane. We have two different operators managing these two components using kubernetes 'Custom Resources' named 'ProphecyCluster' and 'ProphecyDataPlane' respectively. 
 These are the list of services for ControlPlane component in visa cluster:
 * app
 * metagraph
@@ -139,12 +140,12 @@ These are the list of services for ControlPlane component in visa cluster:
 These are the list of services for DataPlane component in visa cluster:
 * execution
 
-Identify the name of the service which requires resources changes. In below example, we are considering 'metagraph' as an example. Please run below command to open the Prophecy ControlPlane custom resource yaml in edit mode.
+Identify the name of the service which requires changes. In the below example, we are considering 'metagraph' as an example. Please run below command to open the Prophecy ControlPlane custom resource yaml in edit mode.
 
 ```
 kubectl -n prophecy edit ProphecyCluster
 ```
-Once you are in edit mode, look for service name, e.g. "metagraph:" and identify the "resource" section for this service. Increase/Decrease the resource in this section and save the file. 
+Once you are in edit mode, look for the service name, e.g. "metagraph:" and identify the "resource" section for this service. Increase/Decrease the resource in this section and save the file. 
 
 If the service is in DataPlane, please use below command to open the custom resource yaml in edit mode:
 ```
@@ -152,7 +153,7 @@ kubectl -n prophecy edit ProphecyDataPlane
 ```
 
 ### How to change/update the prophecy kerberos keytab?
-* Generate new keytab.
+* Generate a new keytab.
 * Delete the existing configmap for kerberos keytab using command:
 ```
 kubectl -n prophecy delete cm kerberos-keytab
@@ -161,4 +162,4 @@ kubectl -n prophecy delete cm kerberos-keytab
 ```
 kubectl -n prophecy create configmap kerberos-keytab --from-file <path of new keytab>
 ```
-* Restart exeuction pod by following instructions in: [How to restart a particular Prophecy Service?](#how-to-restart-a-particular-prophecy-service)
+* Restart execution pod by following instructions in: [How to restart a particular Prophecy Service?](#how-to-restart-a-particular-prophecy-service)
